@@ -1,0 +1,13 @@
+{
+  "name": "changeset-test",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.11.0+sha1.4048eeefd564ff1ab248fac3e2854d38245fe2f1",
+  "scripts": {
+    "changeset": "changeset",
+    "ci:publish": "pnpm publish -r"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.29.4"
+  }
+}
