@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Find PR with title version
         id: find-pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PR_NUMBER=$(gh pr list --state open --search "chore: update versions" --author "app/github-actions" --json number --jq '.[0].number')
           echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_ENV
