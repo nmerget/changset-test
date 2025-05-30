@@ -9,6 +9,9 @@ jobs:
   merge-pr:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code repository
+        uses: actions/checkout@v4
+
       - name: Find PR with title version
         id: find-pr
         env:
