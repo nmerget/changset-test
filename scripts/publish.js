@@ -42,7 +42,11 @@ function publishRelease() {
     console.log("Release exists, skip publish");
   } else {
     console.log("Release not found, creating it");
-    execSync(`gh release create "${version}" --target main --title "${version}" --notes-file "${releaseNotesPath}"`);
+    console.log(
+      execSync(
+        `gh release create "${version}" --target main --title "${version}" --notes-file "${releaseNotesPath}"`,
+      ),
+    );
   }
 }
 
