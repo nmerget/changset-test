@@ -6,7 +6,8 @@
   "packageManager": "pnpm@10.11.0+sha1.4048eeefd564ff1ab248fac3e2854d38245fe2f1",
   "scripts": {
     "changeset": "changeset",
-    "ci:publish": "node scripts/publish.js"
+    "ci:publish": "node scripts/publish.js",
+    "ci:version": "changeset version && node scripts/version.js"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.4"
