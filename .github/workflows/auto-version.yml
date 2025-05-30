@@ -3,7 +3,6 @@ name: Scheduled Merge
 on:
   schedule:
     - cron: '0 0 * * 0' # Sunday midnight
-  workflow_dispatch:
 
 jobs:
   merge-pr:
@@ -12,7 +11,7 @@ jobs:
       - name: Checkout code repository
         uses: actions/checkout@v4
 
-      - name: Find PR with title version
+      - name: Find Changeset PR
         id: find-pr
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
