@@ -41,11 +41,4 @@ jobs:
         if: steps.changesets.outputs.hasChangesets == 'false'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          VERSION="v$(pnpm pkg get version)"          
-          RELEASE_FOUND=$(gh release view "$VERSION")
-          if [[ "$RELEASE_FOUND" == "release not found" ]]; then          
-            gh release create "$VERSION" --target main --title "$VERSION" --notes "<release-notes>"
-          else
-            echo "Release exists skip publish"
-          fi
+        run: pnpm ci:publish
