@@ -1,5 +1,11 @@
 # changeset-test
 
+## 1.0.1
+
+### Patch Changes
+
+- e609a15: Test trigger release:created
+
 ## 1.0.0
 
 ### Major Changes
