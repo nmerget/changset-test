@@ -1,5 +1,11 @@
 # changeset-test
 
+## 1.0.0
+
+### Major Changes
+
+- 110facc: Test release
+
 ## 0.1.0
 
 ### Minor Changes
