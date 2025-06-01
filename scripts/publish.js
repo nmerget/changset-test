@@ -10,13 +10,15 @@ function extractChangelogContent(filePath) {
   let capture = false;
 
   for (const line of lines) {
-    if (capture) {
-      content += line + "\n"; // Add the line to the content
-    }
-
+    let firstCapture = false;
     if (line.startsWith("## ")) {
       if (capture) break; // Stop capturing if another "## " is found
       capture = true; // Start capturing
+      firstCapture = true;
+    }
+
+    if (!firstCapture && capture) {
+      content += line + "\n"; // Add the line to the content
     }
   }
 
@@ -42,11 +44,17 @@ function publishRelease() {
     console.log("Release exists, skip publish");
   } else {
     console.log("Release not found, creating it");
-    console.log(
-      execSync(
-        `gh release create "${version}" --target main --title "${version}" --notes-file "${releaseNotesPath}"`,
-      ),
-    );
+    const releaseCommand = `gh release create "${version}" --target main --title "${version}" --notes-file "${releaseNotesPath}"`;
+    if (process.env.CI) {
+      console.log(execSync(releaseCommand).toString());
+    } else {
+      console.log(
+        "process.env.CI not set would run command:\n",
+        releaseCommand,
+        "\n\nContent for changelog:\n",
+        content,
+      );
+    }
   }
 }
 
