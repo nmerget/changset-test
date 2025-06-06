@@ -3,7 +3,7 @@ name: Commit and PR using gh CLI
 on:
   push:
     branches:
-      - main
+      - new-branch
 
 jobs:
   commit-and-pr:
@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
 
 
       - name: Create new branch and commit changes
@@ -19,15 +21,7 @@ jobs:
         run: |
           git config --global user.email "you@example.com"
           git config --global user.name "Your Name"
-          git checkout -b new-branch
-          git pull --no-rebase origin new-branch
           echo "Test commit" >> test.txt
           git add test.txt
           git commit -m "Add test commit"
-          git push origin new-branch
-
-      - name: Create Pull Request
-        env:
-          GH_TOKEN: ${{ secrets.COMMIT_TOKEN }}
-        run: |
-          gh pr create --base main --head new-branch --title "Automated PR: Add test commit" --body "This PR was created automatically by a GitHub Action."
+          git push origin ${{ github.ref }}
