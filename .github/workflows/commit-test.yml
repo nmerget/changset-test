@@ -8,7 +8,6 @@ on:
 jobs:
   commit-and-pr:
     runs-on: ubuntu-latest
-    if: ${{ !contains(github.head_commit.message,'Add test commit') }}
     env:
       NEW_PR_BRANCH: "${{ github.ref_name }}-auto"
     steps:
@@ -22,8 +21,8 @@ jobs:
 
       - name: Other logs
         run: |
-          echo "${{ !contains(github.head_commit.message,'Add test commit') }}"
-          echo "${{ github.head_commit.message }}"
+          echo "${{ !contains(github.event.head_commit.message,'Add test commit') }}"
+          echo "${{ github.event.head_commit.message }}"
 
 #      - name: Create new branch and commit changes
 #        env:
