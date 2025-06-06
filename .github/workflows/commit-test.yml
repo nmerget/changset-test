@@ -9,7 +9,7 @@ jobs:
   commit-and-pr:
     runs-on: ubuntu-latest
     env:
-      NEW_PR_BRANCH: "${{ github.ref }}-auto"
+      NEW_PR_BRANCH: "${{ github.ref_name }}-auto"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
