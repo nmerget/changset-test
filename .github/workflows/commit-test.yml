@@ -30,7 +30,7 @@ jobs:
           echo "Test commit" >> test.txt
           git add test.txt
           git commit -m "Add test commit"
-          git push origin "$NEW_PR_BRANCH"
+          git push -f origin "$NEW_PR_BRANCH"
 
       - name: Create Pull Request
         env:
