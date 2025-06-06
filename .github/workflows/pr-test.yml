@@ -1,9 +1,7 @@
 name: Run on PR
 
 on:
-  workflow_dispatch:
   pull_request:
-  push:
 
 jobs:
   run-on-pr:
