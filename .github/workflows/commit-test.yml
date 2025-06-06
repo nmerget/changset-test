@@ -41,4 +41,4 @@ jobs:
       - name: 🤖 Enable auto-merge
         run: gh pr merge --squash "$PR_URL"
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.COMMIT_TOKEN}}
