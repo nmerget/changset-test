@@ -12,13 +12,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Authenticate GitHub CLI
-        env:
-          GH_TOKEN: ${{ secrets.COMMIT_TOKEN }}
-        run: |
-          echo "${{ secrets.COMMIT_TOKEN }}" | gh auth login --with-token
 
       - name: Create new branch and commit changes
+        env:
+          GH_TOKEN: ${{ secrets.COMMIT_TOKEN }}
         run: |
           git checkout -b new-branch
           echo "Test commit" >> test.txt
@@ -27,5 +24,7 @@ jobs:
           git push origin new-branch
 
       - name: Create Pull Request
+        env:
+          GH_TOKEN: ${{ secrets.COMMIT_TOKEN }}
         run: |
           gh pr create --base main --head new-branch --title "Automated PR: Add test commit" --body "This PR was created automatically by a GitHub Action."
