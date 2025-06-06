@@ -20,6 +20,7 @@ jobs:
           git config --global user.email "you@example.com"
           git config --global user.name "Your Name"
           git checkout -b new-branch
+          git pull --no-rebase origin new-branch
           echo "Test commit" >> test.txt
           git add test.txt
           git commit -m "Add test commit"
