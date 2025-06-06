@@ -20,30 +20,25 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
 
-      - name: Other logs
+      - name: Create new branch and commit changes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "${{ !contains(github.event.head_commit.message,'Add test commit') }}"
-          echo "${{ github.event.head_commit.message }}"
+          git config --global user.email "snappi.mc-auto-snap@cool.com"
+          git config --global user.name "Snappi Mc Auto Snap"
+          git checkout -b "$NEW_PR_BRANCH"
+          echo "Test commit" >> test.txt
+          git add test.txt
+          git commit -m "Add test commit"
+          git push origin "$NEW_PR_BRANCH"
 
-#      - name: Create new branch and commit changes
-#        env:
-#          GH_TOKEN: ${{ secrets.COMMIT_TOKEN }}
-#        run: |
-#          git config --global user.email "snappi.mc-auto-snap@cool.com"
-#          git config --global user.name "Snappi Mc Auto Snap"
-#          git checkout -b "$NEW_PR_BRANCH"
-#          echo "Test commit" >> test.txt
-#          git add test.txt
-#          git commit -m "Add test commit"
-#          git push origin "$NEW_PR_BRANCH"
-#
-#      - name: Create Pull Request
-#        env:
-#          GH_TOKEN: ${{ secrets.COMMIT_TOKEN }}
-#        run: |
-#          gh pr create --base ${{ github.ref }} --head "$NEW_PR_BRANCH"  --title "Automated PR: Add test commit" --body "This PR was created automatically by a GitHub Action."
-#
-#      - name: 🤖 Enable auto-merge
-#        run: gh pr merge --squash "$PR_URL"
-#        env:
-#          GITHUB_TOKEN: ${{secrets.COMMIT_TOKEN}}
+      - name: Create Pull Request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create --base ${{ github.ref }} --head "$NEW_PR_BRANCH"  --title "Automated PR: Add test commit" --body "This PR was created automatically by a GitHub Action."
+
+      - name: 🤖 Enable auto-merge
+        run: gh pr merge --squash "$PR_URL"
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
