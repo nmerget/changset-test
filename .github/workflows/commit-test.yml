@@ -17,6 +17,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.COMMIT_TOKEN }}
         run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
           git checkout -b new-branch
           echo "Test commit" >> test.txt
           git add test.txt
