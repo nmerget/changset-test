@@ -14,14 +14,19 @@ jobs:
         with:
           ref: ${{ github.ref }}
 
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
 
       - name: Create new branch and commit changes
         env:
           GH_TOKEN: ${{ secrets.COMMIT_TOKEN }}
         run: |
-          git config --global user.email "you@example.com"
-          git config --global user.name "Your Name"
-          echo "Test commit" >> test.txt
-          git add test.txt
-          git commit -m "Add test commit"
-          git push origin ${{ github.ref }}
+      
+          #git config --global user.email "you@example.com"
+          #git config --global user.name "Your Name"
+          #echo "Test commit" >> test.txt
+          #git add test.txt
+          #git commit -m "Add test commit"
+          #git push origin ${{ github.ref }}
