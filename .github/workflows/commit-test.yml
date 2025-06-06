@@ -22,7 +22,7 @@ jobs:
       - name: Create new branch and commit changes
         if: ${{ github.head_commit.message != 'Add test commit' }}
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.COMMIT_TOKEN }}
         run: |
           git config --global user.email "you@example.com"
           git config --global user.name "Your Name"
@@ -34,14 +34,10 @@ jobs:
 
       - name: Create Pull Request
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.COMMIT_TOKEN }}
         run: |
           gh pr create --base ${{ github.ref }} --head "$NEW_PR_BRANCH"  --title "Automated PR: Add test commit" --body "This PR was created automatically by a GitHub Action."
 
-      - name: ✔ Approve a PR
-        run: gh pr review --approve "$NEW_PR_BRANCH"
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: 🤖 Enable auto-merge
         run: gh pr merge --auto --squash "$PR_URL"
