@@ -8,6 +8,7 @@ on:
 jobs:
   commit-and-pr:
     runs-on: ubuntu-latest
+    if: ${{ !startsWith(github.head_commit.message,'Add test commit') }}
     env:
       NEW_PR_BRANCH: "${{ github.ref_name }}-auto"
     steps:
@@ -20,7 +21,6 @@ jobs:
         run: echo "$GITHUB_CONTEXT"
 
       - name: Create new branch and commit changes
-        if: ${{ github.head_commit.message != 'Add test commit' }}
         env:
           GH_TOKEN: ${{ secrets.COMMIT_TOKEN }}
         run: |
@@ -37,7 +37,6 @@ jobs:
           GH_TOKEN: ${{ secrets.COMMIT_TOKEN }}
         run: |
           gh pr create --base ${{ github.ref }} --head "$NEW_PR_BRANCH"  --title "Automated PR: Add test commit" --body "This PR was created automatically by a GitHub Action."
-
 
       - name: 🤖 Enable auto-merge
         run: gh pr merge --squash "$PR_URL"
