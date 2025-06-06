@@ -1,0 +1,31 @@
+name: Commit and PR using gh CLI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  commit-and-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Authenticate GitHub CLI
+        env:
+          GH_TOKEN: ${{ secrets.COMMIT_TOKEN }}
+        run: |
+          echo "${{ secrets.COMMIT_TOKEN }}" | gh auth login --with-token
+
+      - name: Create new branch and commit changes
+        run: |
+          git checkout -b new-branch
+          echo "Test commit" >> test.txt
+          git add test.txt
+          git commit -m "Add test commit"
+          git push origin new-branch
+
+      - name: Create Pull Request
+        run: |
+          gh pr create --base main --head new-branch --title "Automated PR: Add test commit" --body "This PR was created automatically by a GitHub Action."
