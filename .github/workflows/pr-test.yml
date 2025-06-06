@@ -1,0 +1,16 @@
+name: Run on PR
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "main"
+jobs:
+  run-on-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code repository
+        uses: actions/checkout@v4
+
+      - name: Run on PR
+        run: echo "Run on PR or main"
