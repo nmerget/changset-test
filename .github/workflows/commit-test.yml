@@ -20,7 +20,7 @@ jobs:
         run: echo "$GITHUB_CONTEXT"
 
       - name: Create new branch and commit changes
-        if: head_commit.message != 'Add test commit'
+        if: ${{ github.head_commit.message != 'Add test commit' }}
         env:
           GH_TOKEN: ${{ secrets.COMMIT_TOKEN }}
         run: |      
