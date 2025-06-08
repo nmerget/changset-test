@@ -1,5 +1,11 @@
 # changeset-test
 
+## 1.0.2
+
+### Patch Changes
+
+- 4b76a3c: Test Run on PR
+
 ## 1.0.1
 
 ### Patch Changes
