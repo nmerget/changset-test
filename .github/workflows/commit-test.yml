@@ -9,7 +9,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-    if: ${{ !contains(github.event.head_commit.message,'Add test commit') }}
+    if: ${{ !contains(github.actor,'[bot]') }}
     env:
       NEW_PR_BRANCH: "${{ github.head_ref }}-auto"
     steps:
