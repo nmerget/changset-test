@@ -52,4 +52,4 @@ jobs:
       - name: 🤖 Enable auto-merge
         run: gh pr merge --squash "$NEW_PR_BRANCH"
         env:
-          GITHUB_TOKEN: ${{secrets.COMMIT_TOKEN}}
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
