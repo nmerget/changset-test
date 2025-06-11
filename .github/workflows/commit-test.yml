@@ -1,9 +1,7 @@
 name: Commit and PR using gh CLI
 
 on:
-  push:
-    branches:
-      - new-branch
+  pull_request:
 
 jobs:
   commit-and-pr:
