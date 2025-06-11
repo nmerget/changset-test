@@ -1,9 +1,7 @@
 name: Run on PR
 
 on:
-  workflow_dispatch:
   pull_request:
-  push:
 
 jobs:
   run-on-pr:
@@ -14,3 +12,10 @@ jobs:
 
       - name: Run on PR
         run: echo "Run on PR or main"
+
+  commit-test:
+    uses: ./.github/workflows/commit-test.yml
+    secrets: inherit
+    needs: [run-on-pr]
+    with:
+      test: ${{ needs.run-on-pr.result == 'success' }}
